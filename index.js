@@ -49,6 +49,3 @@ var server = app.listen(port, () => console.log(`Server started on port ${port}`
 module.export = server;
 
 
-// admin TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmVkZjg3Y2VmYzU3ZTM4ZmEzNDU5ZiIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYWRtaW5AZXhhbXBsZS5jb20ifQ.tVkKAgvbC90yQ_s6sUPu3ySQP-yPus5FV2Dg41Wofms
-// professor TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmVkZWUzY2VmYzU3ZTM4ZmEzNDU5ZSIsInJvbGUiOiJwcm9mZXNzb3IiLCJlbWFpbCI6InByb2Zlc3NvckBleGFtcGxlLmNvbSJ9.hla4XfgiTPVK4GR5YsVgH35AHz8h0VPhEnoZw7o7GG0
-// student TOKEN = Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmVkZTU2Y2VmYzU3ZTM4ZmEzNDU5ZCIsInJvbGUiOiJzdHVkZW50IiwiZW1haWwiOiJzdHVkZW50QGV4YW1wbGUuY29tIn0.Rhg7gB7eY0qJYAoQhiMnNXT847z5zGs_pmjKQtKSET0
