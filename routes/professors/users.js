@@ -1,27 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const Messages = require("../models/messages");
+const Users = require("../../models/users");
 
-router.get("/find_messages", async (req, res) => {
+router.get("/find_all", async (req, res) => {
     try {
-        const messages = await Messages.find();
-        res.json(messages);
+        const users = await Users.find();
+        res.json(users);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-
-router.get("/find_specific_message", async (req, res) => {
+router.get("/find_all_students", async (req, res) => {
     try {
-        const messages = await Messages.find({ "content": "Welcome!" });
+        const users = await Users.find({ "role": "student" });
         console.log('req', req)
-        res.json(messages);
+        res.json(users);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+
 
 
 module.exports = router;

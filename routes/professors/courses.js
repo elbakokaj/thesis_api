@@ -1,27 +1,27 @@
 const express = require("express");
 const router = express.Router();
-const Users = require("../models/users");
+const Courses = require("../../models/courses");
 
-router.get("/find_all", async (req, res) => {
+router.get("/find_courses", async (req, res) => {
     try {
-        const users = await Users.find();
-        res.json(users);
+        const courses = await Courses.find();
+        res.json(courses);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-router.get("/find_all_students", async (req, res) => {
+
+router.get("/find_specific_course", async (req, res) => {
     try {
-        const users = await Users.find({ "role": "student" });
+        const courses = await Courses.find({ "name": "Introduction to Programming" });
         console.log('req', req)
-        res.json(users);
+        res.json(courses);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-
 
 
 module.exports = router;
