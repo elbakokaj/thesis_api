@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { INTEGER } = require("sequelize");
 
 const userSchema = new mongoose.Schema({
     _id: {
@@ -33,7 +34,8 @@ const userSchema = new mongoose.Schema({
         required: true,
     },
     yearOfEnrollment: {
-        type: Date,
+        type: Number,
+        integer: true,
         required: false,
     },
     consultationHours: {

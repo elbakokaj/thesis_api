@@ -9,8 +9,8 @@ function studentAuth(req, res, next) {
     if (authorization) {
         const decode = jwtDecode(authorization)
         if (decode?.role == "student") {
-            console.log("you are a user ")
-            console.log('decoded', decode)
+            // console.log("you are a user ")
+            // console.log('decoded', decode)
             req._id = decode?.id;
             req.email = decode?.email;
             req.role = decode?.role;
