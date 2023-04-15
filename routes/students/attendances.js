@@ -12,11 +12,13 @@ router.get("/find_attendances", async (req, res) => {
     }
 });
 
-router.get("/find_specific_status/:type", async (req, res) => {
+router.get("/find_specific_status", async (req, res) => {
     try {
-        const allAttendances = await Attendances.find();
-        var records = allAttendances[0].records.filter((el) => el?.status == req.params.type)
-        console.log('recordsrecords', records)
+        const allAttendances = await Attendances.findOne({ courseId: req.body.course_id, date: req.query.course_date });
+        const records = allAttendances && allAttendances?.records?.filter((el) => el.studentId == req.body.student_id);
+        // 
+
+        console.log('attendance records for student', records);
         res.json(records);
     } catch (error) {
         console.error(error);

@@ -31,21 +31,8 @@ router.get("/find_all_students", async (req, res) => {
     }
 });
 
-router.post('/edit_profile/:user_id', async (req, res) => {
+router.put('/edit_profile/:user_id', async (req, res) => {
     console.log('erdha')
-    // try {
-    //     // const post = new Users({
-    //     //     name: req.body.firstName ? req.body.firstName : null,
-    //     //     lastName: req.body.lastName ? req.body.lastName : null,
-    //     //     birthday: req.body.birthday ? req.body.birthday : null,
-    //     // });
-    //     // await post.save();
-    //     // res.status(201).json(post);
-
-    // } catch (err) {
-    //     console.error(err);
-    //     res.status(500).json({ error: 'Server error' });
-    // }
     try {
         console.log('req.paramas', req.params)
         console.log("req.body", req.body)
