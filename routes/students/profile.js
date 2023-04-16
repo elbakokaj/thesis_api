@@ -40,6 +40,30 @@ router.put('/edit/:student_id', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
+router.put('/change_password/:student_id', async (req, res) => {
+    const id = req.params.student_id;
+
+    try {
+        const foundUser = await Users.findByIdAndUpdate(id);
+        const oldPassMatch = req.query.old_password == foundUser?.password;
+        if (oldPassMatch == true) {
+            const updatedData = {};
+            if (req.query.new_password) {
+                updatedData.password = String(req.query.new_password);
+            }
+            const options = { new: true };
+            await Users.findByIdAndUpdate(id, updatedData, options);
+            res.json({ message: "Password changed sucesfully!" });
+        }
+        else {
+            res.json({ message: "Old passwords do not match!" });
+
+        }
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
 
 
 module.exports = router;

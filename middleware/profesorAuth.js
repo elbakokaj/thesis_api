@@ -5,13 +5,10 @@ const config = require("config");
 
 function studentAuth(req, res, next) {
     const authorization = req.headers.authorization;
-    console.log("authorizationauthorizationauthorization", authorization)
     if (authorization) {
         const decode = jwtDecode(authorization)
 
         if (decode?.role == "professor") {
-            console.log("you are a user ")
-            console.log('decoded', decode)
             req._id = decode?.id;
             req.email = decode?.email;
             req.role = decode?.role;

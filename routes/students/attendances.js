@@ -14,8 +14,8 @@ router.get("/find_attendances", async (req, res) => {
 
 router.get("/find_specific_status", async (req, res) => {
     try {
-        const allAttendances = await Attendances.findOne({ courseId: req.body.course_id, date: req.query.course_date });
-        const records = allAttendances && allAttendances?.records?.filter((el) => el.studentId == req.body.student_id);
+        const allAttendances = await Attendances.findOne({ courseId: req.query.course_id, date: req.query.course_date });
+        const records = allAttendances && allAttendances?.records?.filter((el) => el.studentId == req.query.student_id);
         // 
 
         console.log('attendance records for student', records);
