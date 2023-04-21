@@ -13,7 +13,6 @@ router.post("/", async (req, res) => {
 
         var passDecode = jwt_decode(req.body.pass);
         // var passDecode1 = jwt_decode("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MmVkZWUzY2VmYzU3ZTM4ZmEzNDU5ZSIsInJvbGUiOiJwcm9mZXNzb3IiLCJlbWFpbCI6InByb2Zlc3NvckBleGFtcGxlLmNvbSJ9.hla4XfgiTPVK4GR5YsVgH35AHz8h0VPhEnoZw7o7GG0");
-        console.log("passdecode1231223123123arton", passDecode)
         if (foundUser?.password == passDecode) {
             const secret = 'marinairPopaj';
             const professor_id = foundUser?._id
@@ -23,7 +22,6 @@ router.post("/", async (req, res) => {
                 const myjson = foundCourse?._id
                 test.push(myjson)
             }
-            console.log('test', test)
             const data = {
                 id: foundUser?._id,
                 role: foundUser?.role,

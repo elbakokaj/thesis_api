@@ -16,7 +16,7 @@ router.get("/find_specific_status", async (req, res) => {
     try {
         const allAttendances = await Attendances.findOne({ courseId: req.query.course_id, date: req.query.course_date });
         const records = allAttendances?.records?.filter((el) => el.studentId == req.query.student_id);
-        console.log('attendance records for student', req.query.course_date);
+        // console.log('attendance records for student', req.query.course_date);
         res.json(records);
     } catch (error) {
         console.error(error);

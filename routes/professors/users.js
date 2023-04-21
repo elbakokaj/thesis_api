@@ -14,7 +14,7 @@ router.get("/find_all", async (req, res) => {
 router.get("/find_all_students", async (req, res) => {
     try {
         const users = await Users.find({ "role": "student" });
-        console.log('req', req)
+        // console.log('req', req)
         res.json(users);
     } catch (error) {
         console.error(error);

@@ -18,7 +18,7 @@ router.get("/find_specific_status", async (req, res) => {
         const records = allAttendances && allAttendances?.records?.filter((el) => el.studentId == req.query.student_id);
         // 
 
-        console.log('attendance records for student', records);
+        // console.log('attendance records for student', records);
         res.json(records);
     } catch (error) {
         console.error(error);

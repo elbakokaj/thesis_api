@@ -20,10 +20,10 @@ router.get("/find_all", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
-router.get("/find_all_students", async (req, res) => {
+router.get("/find_all_professors", async (req, res) => {
     try {
-        const users = await Users.find({ "role": "student" });
-        console.log('req', req)
+        const users = await Users.find({ "role": "professor" });
+        // console.log('req', req)
         res.json(users);
     } catch (error) {
         console.error(error);
@@ -32,10 +32,9 @@ router.get("/find_all_students", async (req, res) => {
 });
 
 router.put('/edit_profile/:user_id', async (req, res) => {
-    console.log('erdha')
     try {
-        console.log('req.paramas', req.params)
-        console.log("req.body", req.body)
+        // console.log('req.paramas', req.params)
+        // console.log("req.body", req.body)
         const updatedUser = await Users.findByIdAndUpdate(
             req.params.id,
             req.body,

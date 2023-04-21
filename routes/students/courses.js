@@ -18,7 +18,7 @@ router.get("/find_courses", async (req, res) => {
 router.get("/find_specific_course", async (req, res) => {
     try {
         const courses = await Courses.find({ "name": "Introduction to Programming" });
-        console.log('req', req)
+        // console.log('req', req)
         res.json(courses);
     } catch (error) {
         console.error(error);
