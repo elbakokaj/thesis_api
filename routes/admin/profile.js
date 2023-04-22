@@ -44,7 +44,6 @@ router.put('/change_password/:admin_id', async (req, res) => {
     console.log('req.body', req.body)
     try {
         const foundUser = await Users.findByIdAndUpdate(id, {});
-
         const oldPassMatch = req.body.old_password == foundUser?.password;
         if (oldPassMatch == true) {
             const updatedData = {};
