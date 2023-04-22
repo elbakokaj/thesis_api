@@ -47,12 +47,12 @@ router.put('/change_password/:professor_id', async (req, res) => {
     const id = req.params.professor_id;
 
     try {
-        const foundUser = await Users.findByIdAndUpdate(id);
-        const oldPassMatch = req.query.old_password == foundUser?.password;
+        const foundUser = await Users.findByIdAndUpdate(id, {});
+        const oldPassMatch = req.body.old_password == foundUser?.password;
         if (oldPassMatch == true) {
             const updatedData = {};
-            if (req.query.new_password) {
-                updatedData.password = String(req.query.new_password);
+            if (req.body.new_password) {
+                updatedData.password = String(req.body.new_password);
             }
             const options = { new: true };
             await Users.findByIdAndUpdate(id, updatedData, options);
