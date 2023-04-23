@@ -30,7 +30,7 @@ router.put('/attendance/:courseId', async (req, res, next) => {
         const { recordId, status } = req.body;
 
         // Find all attendance records for the given courseId
-        const attendanceRecords = await Attendance.find({ courseId });
+        const attendanceRecords = await Attendances.find({ courseId });
 
         // Update the attendance record with the given _id and status
         const updatedAttendanceRecords = attendanceRecords.map((record) => {
@@ -59,5 +59,44 @@ router.put('/attendance/:courseId', async (req, res, next) => {
 });
 
 
+
+router.put("/update_attendance_records", async (req, res) => {
+    try {
+        const { courseId, groupId, date, records } = req.body;
+
+        console.log("req?.query:", req);
+        console.log("courseId:", courseId);
+        console.log("groupId:", groupId);
+        console.log("date:", date);
+
+        const attendanceRecord = await Attendances.findOne({
+            courseId,
+            groupId,
+            date,
+        });
+
+        console.log("attendanceRecord:", attendanceRecord);
+
+        if (!attendanceRecord) {
+            return res.status(404).json({ message: "Attendance record not found" });
+        }
+
+        // update the attendance record with the new records
+        attendanceRecord.records = records.map((record) => ({
+            studentId: record.studentId,
+            status: record.status,
+        }));
+
+        const updatedAttendanceRecord = await attendanceRecord.save();
+
+        res.status(200).json({
+            message: "Attendance records updated successfully",
+            attendanceRecord: updatedAttendanceRecord,
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+});
 
 module.exports = router;

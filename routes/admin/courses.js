@@ -31,5 +31,20 @@ router.get("/find_specific_course/:professor_id", async (req, res) => {
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
+router.get("/find_specific_data/:course_id/:course_date", async (req, res) => {
+    try {
+        const { course_id, course_date } = req.params;
+
+        const attendance = await Attendances.find();
+        const test = attendance?.find((el) => el?._id == course_id || el?.date == course_date)
+        console.log("attendance", test);
+
+        res.json({ attendance: test });
+    } catch (err) {
+        console.error(err);
+    }
+});
+
+
 
 module.exports = router;

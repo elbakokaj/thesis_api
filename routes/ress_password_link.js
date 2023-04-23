@@ -31,8 +31,8 @@ router.post('/link', bodyParser.json(), async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'artonramadani25@gmail.com',
-                pass: 'yilrvaacstvlikaa'
+                user: 'elbaaak@gmail.com',
+                pass: 'vrefrskyrtgymnab'
             },
             tls: {
                 rejectUnauthorized: false
@@ -41,7 +41,7 @@ router.post('/link', bodyParser.json(), async (req, res, next) => {
 
         const mailOptions = {
             to: user.email,
-            from: 'artonramadani25@gmail.com',
+            from: 'elbaaak@gmail.com',
             subject: 'Password Reset',
             text: `You are receiving this email because you (or someone else) has requested a password reset for your account.\n\n
             Please click on the following link, or paste it into your browser to complete the process:\n\n
@@ -58,6 +58,7 @@ router.post('/link', bodyParser.json(), async (req, res, next) => {
 });
 
 router.get('/reset-password/:token', async (req, res, next) => {
+    console.log("first")
     try {
         // Find the user by reset token and ensure it hasn't expired
         const user = await Users.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } });
@@ -83,8 +84,8 @@ router.get('/reset-password/:token', async (req, res, next) => {
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
             auth: {
-                user: 'artonramadani25@gmail.com',
-                pass: 'yilrvaacstvlikaa'
+                user: 'elbaaak@gmail.com',
+                pass: 'vrefrskyrtgymnab'
             },
             tls: {
                 rejectUnauthorized: false
@@ -93,7 +94,7 @@ router.get('/reset-password/:token', async (req, res, next) => {
 
         const mailOptions = {
             to: user.email,
-            from: 'artonramadani25@gmail.com',
+            from: 'elbaaak@gmail.com',
             subject: 'Your password has been changed',
             text: `Hello,\n\nThis is a confirmation that the password for your account ${user.email} has just been changed to ${randomPassword}. We recomand changing the password after your first login :)\n`
         };

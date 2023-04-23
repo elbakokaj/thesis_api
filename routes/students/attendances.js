@@ -16,36 +16,24 @@ router.get("/find_specific_status", async (req, res) => {
     try {
         // Get the attendance data
         const attendanceData = await Attendances.find();
-        // Initialize an empty object to store the counts
-        // Initialize an empty object to store the counts
-        const counts = {};
+        const records = attendanceData.map((el) => el.records);
+        const result = records.reduce((acc, val) => acc.concat(val), []) // flatten the records array
+            .filter((record) => record?.studentId == req.query.student_id);
+        console.log("result", result);
 
-        // Loop through each array of attendance records
-        for (const recordArray of attendanceData) {
-            // Loop through each record in the array
-            for (const record of recordArray.records) {
-                // Get the student ID for the record
-                const studentId = record.studentId;
 
-                // If the student ID isn't already in the counts object, add it with an empty object
-                if (!counts[studentId]) {
-                    counts[studentId] = {};
-                }
+        var present = 0
+        var absent = 0
+        for (let index = 0; index < result.length; index++) {
 
-                // If the status for the record isn't already in the counts object for the student, add it with a count of 0
-                if (!counts[studentId][record.status]) {
-                    counts[studentId][record.status] = 0;
-                }
-
-                // Increment the count for the status if it's present
-                if (record.status === 'present') {
-                    counts[studentId][record.status]++;
-                }
+            if (result[index]?.status == "present") {
+                present++;
+            }
+            if (result[index]?.status == "absent") {
+                absent++;
             }
         }
-
-
-        // Send the counts object as the response
+        const counts = { present: present, absent: absent }
         res.json(counts);
     } catch (err) {
         console.error(err);

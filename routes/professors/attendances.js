@@ -67,7 +67,11 @@ router.get("/find_students/:course_id", async (req, res) => {
                 var name = student?.firstName
                 var status = element
                 const myJSON = {
-                    name, status
+                    name, status: {
+                        studentId: element.studentId,
+                        status: "",
+                        _id: element._id
+                    },
                 }
                 all_students_that_attend.push(myJSON);
             }
