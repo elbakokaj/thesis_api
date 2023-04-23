@@ -24,5 +24,40 @@ router.get("/find_specific_status", async (req, res) => {
     }
 });
 
+router.put('/attendance/:courseId', async (req, res, next) => {
+    try {
+        const { courseId } = req.params;
+        const { recordId, status } = req.body;
+
+        // Find all attendance records for the given courseId
+        const attendanceRecords = await Attendance.find({ courseId });
+
+        // Update the attendance record with the given _id and status
+        const updatedAttendanceRecords = attendanceRecords.map((record) => {
+            const updatedRecords = record.records.map((attendanceRecord) => {
+                if (attendanceRecord._id.toString() === recordId) {
+                    return { ...attendanceRecord, status };
+                } else {
+                    return attendanceRecord;
+                }
+            });
+
+            return { ...record, records: updatedRecords };
+        });
+
+        // Update the attendance records in the database
+        await Promise.all(
+            updatedAttendanceRecords.map((record) => {
+                return Attendance.findByIdAndUpdate(record._id, record);
+            })
+        );
+
+        res.status(200).json({ message: 'Attendance records updated successfully' });
+    } catch (err) {
+        next(err);
+    }
+});
+
+
 
 module.exports = router;

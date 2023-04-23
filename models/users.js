@@ -45,6 +45,14 @@ const userSchema = new mongoose.Schema({
     course: {
         type: String,
         require: false
+    },
+    resetPasswordToken: {
+        type: String,
+        require: false
+    },
+    resetPasswordExpires: {
+        type: String,
+        require: false
     }
 })
 const Users = mongoose.model('User', userSchema);

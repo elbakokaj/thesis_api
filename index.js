@@ -16,6 +16,8 @@ const port = process.env.PORT || 8000;
 app.get("/servertest", (req, res) => res.send("API RUNNING"))
 
 app.use("/api/login", require("./routes/login"))
+app.use("/api/forgot-password", require("./routes/ress_password_link"))
+app.use("/api/", require("./routes/ress_password_link"))
 
 
 

@@ -14,17 +14,47 @@ router.get("/find_attendances", async (req, res) => {
 
 router.get("/find_specific_status", async (req, res) => {
     try {
-        const allAttendances = await Attendances.findOne({ courseId: req.query.course_id, date: req.query.course_date });
-        const records = allAttendances && allAttendances?.records?.filter((el) => el.studentId == req.query.student_id);
-        // 
+        // Get the attendance data
+        const attendanceData = await Attendances.find();
+        // Initialize an empty object to store the counts
+        // Initialize an empty object to store the counts
+        const counts = {};
 
-        // console.log('attendance records for student', records);
-        res.json(records);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
+        // Loop through each array of attendance records
+        for (const recordArray of attendanceData) {
+            // Loop through each record in the array
+            for (const record of recordArray.records) {
+                // Get the student ID for the record
+                const studentId = record.studentId;
+
+                // If the student ID isn't already in the counts object, add it with an empty object
+                if (!counts[studentId]) {
+                    counts[studentId] = {};
+                }
+
+                // If the status for the record isn't already in the counts object for the student, add it with a count of 0
+                if (!counts[studentId][record.status]) {
+                    counts[studentId][record.status] = 0;
+                }
+
+                // Increment the count for the status if it's present
+                if (record.status === 'present') {
+                    counts[studentId][record.status]++;
+                }
+            }
+        }
+
+
+        // Send the counts object as the response
+        res.json(counts);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send('Server error');
     }
+
 });
 
 
+
 module.exports = router;
+
