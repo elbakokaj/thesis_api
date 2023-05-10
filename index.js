@@ -30,21 +30,18 @@ app.use("/api/", require("./routes/ress_password_link"))
 // ADMIN ROOTS
 app.use("/api/admin/attendances", adminAuth, require("./routes/admin/attendances"));
 app.use("/api/admin/courses", adminAuth, require("./routes/admin/courses"));
-app.use("/api/admin/messages", adminAuth, require("./routes/admin/messages"));
 app.use("/api/admin/users", adminAuth, require("./routes/admin/users"));
 app.use("/api/admin/profile", adminAuth, require("./routes/admin/profile"));
 
 // PROFESOR ROOTS
 app.use("/api/professor/attendances", professorAuth, require("./routes/professors/attendances"));
 app.use("/api/professor/courses", professorAuth, require("./routes/professors/courses"));
-app.use("/api/professor/messages", professorAuth, require("./routes/professors/messages"));
 app.use("/api/professor/users", professorAuth, require("./routes/professors/users"));
 app.use("/api/professor/profile", professorAuth, require("./routes/professors/profile"));
 
 // STUDNET ROOTS
 app.use("/api/student/attendances", studentAuth, require("./routes/students/attendances"));
 app.use("/api/student/courses", studentAuth, require("./routes/students/courses"));
-app.use("/api/student/messages", studentAuth, require("./routes/students/messages"));
 app.use("/api/student/profile", studentAuth, require("./routes/students/profile"));
 
 // app.use("/api/mesages", require("./routes/mesages"))
