@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
 const jwtDecode = require("jwt-decode")
-const config = require("config");
 
 
-function studentAuth(req, res, next) {
+function adminAuth(req, res, next) {
     const authorization = req.headers.authorization;
     // console.log("authorizationauthorizationauthorization", authorization)
     if (authorization) {
@@ -24,4 +23,4 @@ function studentAuth(req, res, next) {
 }
 
 
-module.exports = studentAuth;
+module.exports = adminAuth;

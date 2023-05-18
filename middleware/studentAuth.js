@@ -1,6 +1,5 @@
 const jwt = require("jsonwebtoken");
 const jwtDecode = require("jwt-decode")
-const config = require("config");
 
 
 function studentAuth(req, res, next) {

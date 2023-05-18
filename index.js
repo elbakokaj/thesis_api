@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const connectDB = require("./config/db")
 const cors = require("cors");
 const app = express();
@@ -35,8 +36,6 @@ app.use("/api/admin/profile", adminAuth, require("./routes/admin/profile"));
 
 // PROFESOR ROOTS
 app.use("/api/professor/attendances", professorAuth, require("./routes/professors/attendances"));
-app.use("/api/professor/courses", professorAuth, require("./routes/professors/courses"));
-app.use("/api/professor/users", professorAuth, require("./routes/professors/users"));
 app.use("/api/professor/profile", professorAuth, require("./routes/professors/profile"));
 
 // STUDNET ROOTS
@@ -45,9 +44,14 @@ app.use("/api/student/courses", studentAuth, require("./routes/students/courses"
 app.use("/api/student/profile", studentAuth, require("./routes/students/profile"));
 
 // app.use("/api/mesages", require("./routes/mesages"))
-
+// const server = app.listen(0, () => {
+//     console.log(server.address())
+//     const port = server.address().port;
+//     console.log(`Server is running on port ${port}`);
+// });
 var server = app.listen(port, () => console.log(`Server started on port ${port}`))
 
-module.export = server;
+module.exports = server;
+
 
 

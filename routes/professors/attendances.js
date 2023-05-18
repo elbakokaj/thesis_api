@@ -19,39 +19,6 @@ router.get("/find_taken_attendances", async (req, res) => {
     }
 });
 
-
-router.get("/find_students_attendences", async (req, res) => {
-    try {
-        const courseId = req.query.course_id;
-        const allAttendances = await Attendances.find({ courseId });
-        const allUsers = await Users.find();
-
-        const allStudentsAttendance = allAttendances.map((attendance) => {
-            const records = attendance.records.map((record) => {
-                const student = allUsers.find((user) => user._id.toString() === record.studentId.toString());
-                if (student) {
-                    return {
-                        name: student.firstName,
-                        status: record.status,
-                    };
-                }
-                return null;
-            });
-            return {
-                date: attendance.date,
-                groupId: attendance.groupId,
-                records: records.filter((r) => r != null),
-            };
-        });
-
-        res.json(allStudentsAttendance);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-
 // THIS ROUTE IS USED TO GET ALL THE STUDENTS THAT ATTEND THE COURSE OF THAT PROFESOR SO THAT THE PROFESSOR MAY LATER ON USE THE ROUTE {{{{ store_students_attendances  }}} TO STORE THE ATTENDENCE OF THOSE STUDENTS
 router.get("/find_students/:course_id", async (req, res) => {
     try {
@@ -110,19 +77,5 @@ router.post("/store_students_attendances", async (req, res) => {
     }
 });
 
-router.get('/find_course/:professor_id', async (req, res) => {
-    try {
-        const foundCourse = await Courses.findOne({ professorId: req.params.professor_id });
-
-        const CourseStudents = foundCourse.group.studentIds;
-        if (!foundCourse) {
-            return res.status(404).json({ message: 'Course not found' });
-        }
-        res.json(CourseStudents);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'Internal Server Error' });
-    }
-});
 
 module.exports = router;

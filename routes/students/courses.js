@@ -2,59 +2,36 @@ const express = require("express");
 const router = express.Router();
 const Courses = require("../../models/courses");
 
-router.get("/find_courses", async (req, res) => {
-    try {
-        const courses = await Courses.find();
-        res.json(courses);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
+async function getCourses(studentId) {
 
-
-
-
-router.get("/find_specific_course", async (req, res) => {
-    try {
-        const courses = await Courses.find({ "name": "Introduction to Programming" });
-        // console.log('req', req)
-        res.json(courses);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal Server Error" });
-    }
-});
-
-
-
-
-async function getCourseName(studentId) {
-    try {
-        const courses = database.collection('courses');
-
-        const course = await courses.findOne({ "groups.studentIds": ObjectId(studentId) });
-
-        if (course) {
-            return course.name;
-        } else {
-            return null;
+    const courses = await Courses.aggregate([{ $match: { "group.studentIds": studentId } },
+    {
+        $project: {
+            _id: 0,
+            name: 1,
+            semester: 1,
+            professorId: 1,
+            course_date: 1
         }
-    } catch (err) {
-        console.error(err);
-    } finally {
-        await client.close();
+    }
+    ]);
+
+    if (courses.length > 0) {
+        console.log(courses);
+        return courses;
+    } else {
+        return null;
     }
 }
 
 router.get('/course_name/:studentId', async (req, res) => {
     const studentId = req.params.studentId;
-    const courseName = await getCourseName(studentId);
+    const courses = await getCourses(studentId);
 
-    if (courseName) {
-        res.send(`Course name: ${courseName}`);
+    if (courses) {
+        res.send(courses);
     } else {
-        res.status(404).send('Course not found for the given student ID.');
+        res.status(404).send('No courses found for the given student ID.');
     }
 });
 
