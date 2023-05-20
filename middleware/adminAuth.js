@@ -4,12 +4,9 @@ const jwtDecode = require("jwt-decode")
 
 function adminAuth(req, res, next) {
     const authorization = req.headers.authorization;
-    // console.log("authorizationauthorizationauthorization", authorization)
     if (authorization) {
         const decode = jwtDecode(authorization)
         if (decode?.role == "admin") {
-            // console.log("you are a admin ")
-            // console.log('decoded', decode)
             req._id = decode?.id;
             req.email = decode?.email;
             req.role = decode?.role;

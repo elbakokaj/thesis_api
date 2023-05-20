@@ -47,7 +47,7 @@ router.get("/find_students/:course_id", async (req, res) => {
         res.json(all_students_that_attend);
 
     } catch (error) {
-        console.error(error);
+        console.error("erroriii", error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
