@@ -31,14 +31,14 @@ describe("GET /course_name/:studentId", () => {
         expect(res.text).toBe("No courses found for the given student ID.");
     });
 
-    // it("should return 500 when internal server error", async () => {
-    //     Courses.aggregate.mockImplementation(() => Promise.reject(new Error()));
+    it("should return 500 when internal server error", async () => {
+        Courses.aggregate.mockImplementation(() => Promise.reject(new Error()));
 
-    //     const res = await request(app).get("/course_name/student1");
+        const res = await request(app).get("/course_name/student1");
 
-    //     expect(res.statusCode).toEqual(500);
-    //     expect(res.body).toHaveProperty("error", "Internal Server Error");
-    // }, 10000); // setting timeout of 10s
+        expect(res.statusCode).toEqual(500);
+        expect(res.body).toHaveProperty("error", "Internal Server Error");
+    }, 10000); // setting timeout of 10s
 
 
 });

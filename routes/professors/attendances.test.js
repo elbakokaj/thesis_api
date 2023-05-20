@@ -9,12 +9,12 @@ const Attendances = require("../../models/attendances");
 const Users = require("../../models/users"); // Import Users model
 jest.mock("../../models/attendances");
 jest.mock("../../models/users"); // Mock Users model
-
+app.use(express.json());
 // Apply your routes to the express instance
 app.use("/", router);
 
 // Setup body parser middleware for POST request
-app.use(express.json());
+
 
 const mockAttendances = [
     {
@@ -141,15 +141,15 @@ describe('GET /find_students/:course_id', () => {
 });
 
 describe("POST /store_students_attendances", () => {
-    // it("should return 200 and a success message", async () => {
-    //     const res = await request(app)
-    //         .post("/store_students_attendances")
-    //         .send(requestBody);
+    it("should return 200 and a success message", async () => {
+        const res = await request(app)
+            .post("/store_students_attendances")
+            .send(requestBody);
 
-    //     expect(res.statusCode).toEqual(200);
-    //     expect(res.body).toHaveProperty("message", "Attendance saved successfully");
-    //     expect(res.body).toHaveProperty("attendanceRecord");
-    // });
+        expect(res.statusCode).toEqual(200);
+        expect(res.body).toHaveProperty("message", "Attendance saved successfully");
+        expect(res.body).toHaveProperty("attendanceRecord");
+    });
 
     it("should return 500 when internal server error", async () => {
         Attendances.create.mockImplementationOnce(() => {
@@ -166,5 +166,4 @@ describe("POST /store_students_attendances", () => {
 });
 afterAll(() => {
     mongoose.connection.close();
-  });
-  
+});

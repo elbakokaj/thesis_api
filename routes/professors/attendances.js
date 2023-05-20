@@ -72,7 +72,7 @@ router.post("/store_students_attendances", async (req, res) => {
 
         res.status(200).json({ message: "Attendance saved successfully", attendanceRecord });
     } catch (error) {
-        console.error(error);
+        console.error('Erroir:', error);
         res.status(500).json({ error: "Internal Server Error" });
     }
 });
